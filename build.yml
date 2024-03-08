@@ -1,0 +1,19 @@
+---
+- name: Install Ansible Collections
+  hosts: k3s_cluster
+  gather_facts: false
+  tasks:
+    - name: Install Docker collection
+      community.general.collection_install:
+        name: community.docker
+        state: present
+
+    - name: Install Kubernetes collection
+      community.general.collection_install:
+        name: community.kubernetes
+        state: present
+
+- name: Build master node
+  hosts: k3s_cluster
+  roles:
+    - role: k3s-install

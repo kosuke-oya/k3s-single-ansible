@@ -1,0 +1,14 @@
+---
+- name: Install k3s
+  shell: curl -sfL https://get.k3s.io | sh -
+
+- name: Download K3s install script
+  become: yes
+  when: airgap_dir is undefined
+  ansible.builtin.get_url:
+    url: https://get.k3s.io/
+    timeout: 120
+    dest: /usr/local/bin/k3s-install.sh
+    owner: root
+    group: root
+    mode: 0755
